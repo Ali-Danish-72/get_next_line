@@ -6,7 +6,7 @@
 /*   By: mdanish <mdanish@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 18:20:03 by mdanish           #+#    #+#             */
-/*   Updated: 2023/08/15 13:17:17 by mdanish          ###   ########.fr       */
+/*   Updated: 2023/08/15 18:06:01 by mdanish          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,22 +73,3 @@ char	*get_next_line(int fd)
 	save = ft_substr(line, new_line, ft_strlen(line) - (new_line - 1));
 	return (line);
 }
-
-// int main()
-// {
-// 	int fd;
-// 	fd = open("get_next_line_utils.c", O_RDONLY);
-// 	char *p;
-// 	for (int i = 0; i < 104; i++){
-// 		p = get_next_line(fd);
-// 		printf("%s", p);
-// 		free (p);
-// 	}
-// 	close(fd);
-// }
-	// fd = open("hello.txt", O_RDONLY);
-	// for (int j = 1; j < 5; j++){
-	// 	p = get_next_line(fd);
-	// 	printf("%s", p);
-	// 	free (p);
-	// }
