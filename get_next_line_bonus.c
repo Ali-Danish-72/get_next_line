@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdanish <mdanish@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 18:20:03 by mdanish           #+#    #+#             */
-/*   Updated: 2023/08/16 13:43:06 by mdanish          ###   ########.fr       */
+/*   Updated: 2023/08/16 18:01:56 by mdanish          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 int	check_new_line(char *line)
 {
@@ -49,7 +49,7 @@ char	*get_next_line(int fd)
 {
 	char		*str;
 	char		*line;
-	static char	*save;
+	static char	*save[4096];
 	int			new_line;
 	int			check_eof;
 
@@ -59,17 +59,17 @@ char	*get_next_line(int fd)
 	{
 		str = ft_calloc(BUFFER_SIZE + 1, 1);
 		if (!str)
-			return (free_head_tail(save, str, NULL, NULL));
+			return (free_head_tail(save[fd], str, NULL, NULL));
 		check_eof = read(fd, str, BUFFER_SIZE);
-		if (check_eof == -1 || (!save && check_eof == 0))
+		if (check_eof == -1 || (!save[fd] && check_eof == 0))
 		{
-			save = free_head_tail(str, save, NULL, NULL);
+			save[fd] = free_head_tail(str, save[fd], NULL, NULL);
 			break ;
 		}
-		line = ft_strjoin_and_free(line, save, str);
-		save = NULL;
+		line = ft_strjoin_and_free(line, save[fd], str);
+		save[fd] = NULL;
 		new_line = check_new_line(line);
 	}
-	save = ft_substr(line, new_line, ft_strlen(line) - (new_line - 1));
+	save[fd] = ft_substr(line, new_line, ft_strlen(line) - (new_line - 1));
 	return (line);
 }
